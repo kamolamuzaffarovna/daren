@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<section class="breadcrumb breadcrumb_bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb_iner">
+                    <div class="breadcrumb_iner_item">
+                        <h2>Post Archive</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="all_post archive_post">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="row">
+                    {% for article in articles %}
+                        <div class="col-lg-6">
+                            <div class="single_catagory_post post_2">
+                                <div class="category_post_img">
+                                    <img src="{{ article.image.url }}" alt>
+                                    <a href="{% url 'main:category' %}" class="category_btn">{{ article.category }}</a>
+                                </div>
+                                <div class="post_text_1 pr_30">
+                                    <p><span>{{ article.author }}</span> / {{ article.created_date|date:"d/m/y" }}</p>
+                                    <a href="{% url 'archive:detail' article.slug %}">
+                                        <h3>{{ article.title }}</h3>
+                                    </a>
+                                    <div class="post_icon">
+                                        <ul>
+                                            <li><i class="ti-comment"></i>2 Comment</li>
+                                            <li><i class="ti-heart"></i>0 Like</li>
+                                            <li><i class="ti-export"></i>Share</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+                <div class="col-lg-4">
+                    {% include 'page_footer.html' %}
+                </div>
+
+        </div>
+    </div>
+</section>
+
+{% endblock %}

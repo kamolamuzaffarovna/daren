@@ -1,0 +1,62 @@
+
+{% load footer_articles %}
+{% site_bar_articles as footer_articles %}
+{% article_category as article_category %}
+{% article_tags as article_tags %}
+
+
+<div class="sidebar_widget">
+    <div class="sidebar_tittle">
+        <h3>Search Objects</h3>
+    </div>
+    <form action="#">
+        <div class="form-group">
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="Search Keyword"
+                       onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search Keyword'">
+                <div class="input-group-append">
+                    <button class="btn" type="button"><i class="ti-search"></i></button>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="sidebar_tittle">
+        <h3>Popular Feeds</h3>
+    </div>
+    {% for footer_article in footer_articles %}
+        <div class="single_catagory_post post_2 single_border_bottom">
+            <div class="category_post_img">
+                <img src="{{ footer_article.image.url }}" alt>
+            </div>
+            <div class="post_text_1 pr_30">
+                <p><span> {{ footer_article.author.name }} </span> / {{ footer_article.created_date|date:"d/m/y" }}</p>
+                <a href="{% url 'archive:detail' footer_article.slug %}">
+                    <h3>{{ footer_article.title }}</h3>
+                </a>
+            </div>
+        </div>
+    {% endfor %}
+
+    <div class="sidebar_tittle">
+        <h3>Categories</h3>
+    </div>
+    <div class="single_catagory_item category">
+        <ul class="list-unstyled">
+
+           {% for category in article_category %}
+                <li><a href="{% url 'main:category' %}?cat={{ category.title }}">{{ category.title }}</a></li>
+            {% endfor %}
+
+        </ul>
+    </div>
+    <div class="sidebar_tittle">
+        <h3>Popular Tags</h3>
+    </div>
+    <div class="single_catagory_item tags">
+        <ul class="list-unstyled">
+            {% for tag in article_tags %}
+                <li><a href="{% url 'main:category' %}?tag={{ tag.title }}">{{ tag.title }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
